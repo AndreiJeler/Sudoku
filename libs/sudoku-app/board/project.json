@@ -1,0 +1,9 @@
+{
+  "name": "board",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/sudoku-app/board/src",
+  "prefix": "sudoku",
+  "tags": [],
+  "projectType": "library",
+  "targets": {}
+}

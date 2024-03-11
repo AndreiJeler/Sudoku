@@ -1,0 +1,40 @@
+<div class="board sudoku--flex-column">
+  <div
+    class="row sudoku--flex"
+    *ngFor="let row of board$ | async; let rowIndex = index"
+  >
+    <div
+      class="cell sudoku--flex-centered"
+      [ngClass]="{
+        'top': rowIndex % 3 === 0,
+        'bottom': rowIndex % 3 === 2,
+        'left': colIndex % 3 === 0,
+        'right': colIndex % 3 === 2,
+        'highlighted-row': selectedRow === rowIndex,
+        'highlighted-column': selectedCol === colIndex,
+        'active': selectedRow === rowIndex && selectedCol === colIndex,
+        'readonly': cell.isGenerated,
+      }"
+      disabled="cell.isGenerated"
+      *ngFor="let cell of row; let colIndex = index"
+      (click)="onCellClicked(rowIndex, colIndex)"
+    >
+      <input
+        type="number"
+        min="1"
+        max="9"
+        spellcheck="false"
+        autocomplete="off"
+        pattern="[0-9]"
+        class="cell-input"
+        sudokuRestrictOneDigit
+        *ngIf="!cell.isGenerated; else generatedCell"
+        [(ngModel)]="cell.value"
+      />
+      <ng-template #generatedCell>
+        <span class="cell-value"> {{ cell.value }}</span>
+      </ng-template>
+    </div>
+  </div>
+</div>
+<!-- (keydown)="onCellValueChange(rowIndex, colIndex, 0)" -->

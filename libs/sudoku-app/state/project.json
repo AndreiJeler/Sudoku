@@ -1,0 +1,9 @@
+{
+  "name": "state",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/sudoku-app/state/src",
+  "prefix": "sudoku",
+  "tags": [],
+  "projectType": "library",
+  "targets": {}
+}

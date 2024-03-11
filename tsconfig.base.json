@@ -1,0 +1,25 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "esnext",
+    "lib": ["es2020", "dom"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@sudoku/board": ["libs/sudoku-app/board/src/index.ts"],
+      "@sudoku/home-page": ["libs/sudoku-app/home-page/src/index.ts"],
+      "@sudoku/shared": ["libs/sudoku-app/shared/src/index.ts"],
+      "@sudoku/state": ["libs/sudoku-app/state/src/index.ts"]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
+}

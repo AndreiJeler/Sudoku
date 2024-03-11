@@ -1,0 +1,35 @@
+<div class="main-container sudoku--flex-centered">
+  <div class="game-container sudoku--flex-centered sudoku--flex-column">
+    <div class="title-container sudoku--flex-column">
+      <span class="title">SuGoku</span>
+      <span class="subtitle">Welcome</span>
+    </div>
+    <div class="game-settings-container sudoku--flex-column">
+      <span class="difficulty-label"
+        >Choose a difficulty to start a new game:</span
+      >
+      <div class="difficulties-container sudoku--flex">
+        <button class="action" (click)="selectDifficulty('easy')">Easy</button>
+        <button class="action" (click)="selectDifficulty('medium')">
+          Medium
+        </button>
+        <button class="action" (click)="selectDifficulty('hard')">Hard</button>
+        <button class="action" (click)="selectDifficulty('random')">
+          Random
+        </button>
+      </div>
+      <button class="action" (click)="generateCoopRoom()" *ngIf="!isGuest">
+        Share room with other players
+      </button>
+    </div>
+    <div class="board-container">
+      <sudoku-board></sudoku-board>
+    </div>
+    <div class="actions-container sudoku--flex-space-between">
+      <button class="action">Validate</button>
+      <button class="action">Solve</button>
+    </div>
+  </div>
+</div>
+
+<ng-template></ng-template>

@@ -1,0 +1,65 @@
+.board {
+  .row {
+    .cell {
+      border: thin solid black;
+      width: 3rem;
+      height: 3rem;
+      font-size: 2rem;
+      font-weight: bold;
+      text-align: center;
+
+      &.top {
+        border-top: 2px solid red;
+      }
+
+      &.bottom {
+        border-bottom: 2px solid red;
+      }
+
+      &.left {
+        border-left: 2px solid red;
+      }
+
+      &.right {
+        border-right: 2px solid red;
+      }
+
+      &.highlighted-row {
+        background-color: yellow;
+
+        .cell-input {
+          background-color: yellow;
+        }
+      }
+
+      &.highlighted-column {
+        background-color: yellow;
+
+        .cell-input {
+          background-color: yellow;
+        }
+      }
+
+      &.readonly {
+        background-color: green;
+      }
+
+      .cell-value {
+        cursor: default;
+        -webkit-user-select: none; /* Safari */
+        -ms-user-select: none; /* IE 10 and IE 11 */
+        user-select: none; /* Standard syntax */
+      }
+
+      .cell-input {
+        width: 100%;
+        height: 100%;
+        padding: 0;
+        border: 0;
+        font-size: 2rem;
+        outline: none;
+        text-align: center;
+      }
+    }
+  }
+}
