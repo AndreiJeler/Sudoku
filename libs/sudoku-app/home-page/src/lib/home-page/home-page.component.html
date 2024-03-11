@@ -1,8 +1,15 @@
 <div class="main-container sudoku--flex-centered">
   <div class="game-container sudoku--flex-centered sudoku--flex-column">
     <div class="title-container sudoku--flex-column">
-      <span class="title">SuGoku</span>
-      <span class="subtitle">Welcome</span>
+      <!-- <span class="title">Sudoku</span> -->
+      <img class="logo" src="./assets/images/logo.png" />
+    </div>
+    <div class="help-container sudoku--flex">
+      <span class="label">Do you want to read the rules?</span>
+      <a
+        href="https://sudoku.com/how-to-play/sudoku-rules-for-complete-beginners/"
+        >Read them here</a
+      >
     </div>
     <div class="game-settings-container sudoku--flex-column">
       <span class="difficulty-label"
@@ -25,7 +32,7 @@
     <div class="board-container">
       <sudoku-board></sudoku-board>
     </div>
-    <div class="actions-container sudoku--flex-space-between">
+    <div class="actions-container sudoku--flex-space-between" *ngIf="!isGuest">
       <button
         class="action"
         (click)="onValidateBoard()"
@@ -40,6 +47,9 @@
       >
         Solve
       </button>
+    </div>
+    <div class="footer">
+      *Application created by Andrei Jeler using Angular*
     </div>
   </div>
 </div>

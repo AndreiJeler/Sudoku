@@ -37,7 +37,6 @@ export class HomePageComponent
   isBoardSolved$ = this._store.select(selectBoardStatus).pipe(
     takeUntil(this.ngUnsubscribe),
     switchMap((boardStatus) => {
-      console.log(boardStatus === 'solved');
       return of(boardStatus === 'solved');
     })
   );
@@ -57,7 +56,9 @@ export class HomePageComponent
         filter((params) => params['roomId'])
       )
       .subscribe((params) => {
-        if (!params || !params['roomId']) return;
+        if (!params || !params['roomId']) {
+          return;
+        }
 
         this._roomId = params['roomId'];
         this.isGuest = true;

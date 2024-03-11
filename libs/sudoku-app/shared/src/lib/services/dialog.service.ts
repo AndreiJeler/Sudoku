@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import Swal, { SweetAlertOptions } from 'sweetalert2';
+import Swal, { SweetAlertOptions, SweetAlertResult } from 'sweetalert2';
 
 @Injectable()
 export class DialogService {
+  private _loader?: Promise<SweetAlertResult<any>>;
   showDialog(options: SweetAlertOptions) {
     options.allowOutsideClick = false;
     return Swal.fire(options);
@@ -29,5 +30,17 @@ export class DialogService {
         });
       },
     });
+  }
+
+  showLoader(): void {
+    this._loader = Swal.fire({
+      title: 'Loading...',
+      allowOutsideClick: false,
+      didOpen: () => Swal.showLoading(),
+    });
+  }
+
+  stopLoader(): void {
+    this._loader!.then();
   }
 }

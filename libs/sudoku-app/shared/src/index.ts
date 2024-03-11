@@ -10,4 +10,3 @@ export * from './lib/models/board-status';
 export * from './lib/models/validate-response';
 export * from './lib/models/solve-response';
 export * from './lib/components/self-unsubscribe.component';
-export * from './lib/directives/one-digit.directive';

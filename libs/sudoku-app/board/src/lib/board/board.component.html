@@ -22,13 +22,11 @@
     >
       <input
         type="number"
-        min="1"
-        max="9"
         spellcheck="false"
         autocomplete="off"
-        pattern="[0-9]"
+        mask="0"
+        [patterns]="customPatterns"
         class="cell-input"
-        sudokuRestrictOneDigit
         *ngIf="!cell.isGenerated; else generatedCell"
         (input)="onCellValueChange(rowIndex, colIndex, $event.target)"
       />
@@ -38,4 +36,3 @@
     </div>
   </div>
 </div>
-<!-- (keydown)="onCellValueChange(rowIndex, colIndex, 0)" -->

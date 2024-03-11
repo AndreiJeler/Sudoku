@@ -8,18 +8,23 @@ import {
   selectBoardStatus,
   selectInitialBoard,
 } from '@sudoku/state';
-import { OneDigitDirective, SelfUnsubscribeComponent } from '@sudoku/shared';
+import { NgxMaskDirective } from 'ngx-mask';
+import { SelfUnsubscribeComponent } from '@sudoku/shared';
 
 @Component({
   selector: 'sudoku-board',
   standalone: true,
-  imports: [CommonModule, OneDigitDirective, FormsModule],
+  imports: [CommonModule, FormsModule, NgxMaskDirective],
   templateUrl: './board.component.html',
   styleUrl: './board.component.scss',
 })
 export class BoardComponent extends SelfUnsubscribeComponent {
   selectedRow = -1;
   selectedCol = -1;
+
+  customPatterns = {
+    '0': { pattern: new RegExp('[1-9]') },
+  };
 
   board$ = this._store.select(selectInitialBoard).pipe(
     takeUntil(this.ngUnsubscribe),
