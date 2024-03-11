@@ -10,7 +10,7 @@ export class DialogService {
 
   copyUrlToClipboard(url: string) {
     Swal.fire({
-      title: 'Copy coop room URL to clipboard',
+      title: 'Copy co-op room URL to clipboard',
       input: 'text',
       inputValue: url,
       showCancelButton: true,

@@ -17,3 +17,13 @@ export const selectInitialBoard = createSelector(
   selectBoardState,
   (state) => state.initialBoard
 );
+
+export const selectRoomId = createSelector(
+  selectBoardState,
+  (state) => state.roomId
+);
+
+export const selectBoardStatus = createSelector(
+  selectBoardState,
+  (state) => state.boardStatus
+);

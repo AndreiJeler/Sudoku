@@ -3,13 +3,17 @@ import { SudokuState } from './sudoku.state';
 import {
   cellValueChanged,
   successfullyGeneratedNewBoard,
+  successfullySolvedBoard,
+  successfullyValidatedBoard,
 } from './sudoku.actions';
-import { createEmptyBoard } from '@sudoku/shared';
+import { createEmptyBoard, mapMatrixToBoard } from '@sudoku/shared';
 
 export const initialState: SudokuState = {
   initialBoard: createEmptyBoard(),
   currentBoard: createEmptyBoard(),
   currentDifficulty: 'random',
+  roomId: null,
+  boardStatus: null,
 };
 
 export const sudokuReducer = createReducer(
@@ -19,6 +23,20 @@ export const sudokuReducer = createReducer(
     initialBoard: { ...board },
     currentBoard: board,
     currentDifficulty: difficulty,
+  })),
+  on(successfullySolvedBoard, (state, { solveResponse }) =>
+    solveResponse.status != 'solved'
+      ? { ...state }
+      : {
+          ...state,
+          currentBoard: { ...mapMatrixToBoard(solveResponse.solution) },
+          initialBoard: { ...mapMatrixToBoard(solveResponse.solution) },
+          boardStatus: solveResponse.status,
+        }
+  ),
+  on(successfullyValidatedBoard, (state, { boardStatus }) => ({
+    ...state,
+    boardStatus: boardStatus,
   })),
   on(cellValueChanged, (state, { row, col, value }) => ({
     ...state,

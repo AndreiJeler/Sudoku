@@ -6,14 +6,15 @@
     <div
       class="cell sudoku--flex-centered"
       [ngClass]="{
-        'top': rowIndex % 3 === 0,
-        'bottom': rowIndex % 3 === 2,
-        'left': colIndex % 3 === 0,
-        'right': colIndex % 3 === 2,
+        top: rowIndex % 3 === 0,
+        bottom: rowIndex % 3 === 2,
+        left: colIndex % 3 === 0,
+        right: colIndex % 3 === 2,
         'highlighted-row': selectedRow === rowIndex,
         'highlighted-column': selectedCol === colIndex,
-        'active': selectedRow === rowIndex && selectedCol === colIndex,
-        'readonly': cell.isGenerated,
+        active: selectedRow === rowIndex && selectedCol === colIndex,
+        readonly: cell.isGenerated,
+        solved: (isBoardSolved$ | async)
       }"
       disabled="cell.isGenerated"
       *ngFor="let cell of row; let colIndex = index"
@@ -29,7 +30,7 @@
         class="cell-input"
         sudokuRestrictOneDigit
         *ngIf="!cell.isGenerated; else generatedCell"
-        [(ngModel)]="cell.value"
+        (input)="onCellValueChange(rowIndex, colIndex, $event.target)"
       />
       <ng-template #generatedCell>
         <span class="cell-value"> {{ cell.value }}</span>

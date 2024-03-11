@@ -16,6 +16,20 @@ export function mapApiEntityToBoard(board: BoardApi): Board {
   };
 }
 
+export function mapMatrixToBoard(board: number[][]): Board {
+  return {
+    cells: board.map((row) =>
+      row.map((cell) => {
+        return { value: cell, isSelected: false, isGenerated: cell != 0 };
+      })
+    ),
+  };
+}
+
+export function mapBoardToMatrix(board: Board): number[][] {
+  return board.cells.map((row) => row.map((cell) => cell.value));
+}
+
 export function createEmptyBoard(): Board {
   const emptyCell: BoardCell = {
     value: 0,

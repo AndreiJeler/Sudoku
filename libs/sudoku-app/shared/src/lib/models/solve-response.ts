@@ -4,6 +4,6 @@ import { BoardStatus } from './board-status';
 
 export type SolveResponse = {
   difficulty: BoardDifficulty;
-  solution: BoardApi;
+  solution: number[][];
   status: BoardStatus;
 };

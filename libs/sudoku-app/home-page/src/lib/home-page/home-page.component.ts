@@ -2,14 +2,19 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { filter, of, switchMap, takeUntil } from 'rxjs';
 import { BoardComponent } from '@sudoku/board';
 import {
   BoardDifficulty,
   DialogService,
   SelfUnsubscribeComponent,
 } from '@sudoku/shared';
-import { generateNewBoard } from '@sudoku/state';
-import { filter, takeUntil } from 'rxjs';
+import {
+  generateNewBoard,
+  selectBoardStatus,
+  solveBoard,
+  validateBoard,
+} from '@sudoku/state';
 
 @Component({
   selector: 'sudoku-home-page',
@@ -24,6 +29,18 @@ export class HomePageComponent
 {
   private _roomId?: string;
   isGuest = false;
+
+  boardStatus$ = this._store
+    .select(selectBoardStatus)
+    .pipe(takeUntil(this.ngUnsubscribe));
+
+  isBoardSolved$ = this._store.select(selectBoardStatus).pipe(
+    takeUntil(this.ngUnsubscribe),
+    switchMap((boardStatus) => {
+      console.log(boardStatus === 'solved');
+      return of(boardStatus === 'solved');
+    })
+  );
 
   public constructor(
     private _store: Store,
@@ -53,10 +70,17 @@ export class HomePageComponent
 
   generateCoopRoom(): void {
     const roomId = this._generateGuid();
-    console.log(roomId);
     this._dialogService.copyUrlToClipboard(
       `http://localhost:4200?roomId=${roomId}`
     );
+  }
+
+  onSolveBoard(): void {
+    this._store.dispatch(solveBoard());
+  }
+
+  onValidateBoard(): void {
+    this._store.dispatch(validateBoard());
   }
 
   // Short custom made GUID template for a shorter URL

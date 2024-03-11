@@ -26,8 +26,20 @@
       <sudoku-board></sudoku-board>
     </div>
     <div class="actions-container sudoku--flex-space-between">
-      <button class="action">Validate</button>
-      <button class="action">Solve</button>
+      <button
+        class="action"
+        (click)="onValidateBoard()"
+        [disabled]="isBoardSolved$ | async"
+      >
+        Validate
+      </button>
+      <button
+        class="action"
+        (click)="onSolveBoard()"
+        [disabled]="isBoardSolved$ | async"
+      >
+        Solve
+      </button>
     </div>
   </div>
 </div>
