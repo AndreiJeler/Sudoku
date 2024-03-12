@@ -7,6 +7,7 @@ import { Injectable } from '@angular/core';
 import { catchError, Observable, Subject } from 'rxjs';
 import { DialogService } from '@sudoku/shared';
 
+// Base api service to make http calls, giving customizable requests
 @Injectable()
 export class ApiService {
   public errors = new Subject<HttpErrorResponse>();

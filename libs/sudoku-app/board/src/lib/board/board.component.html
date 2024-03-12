@@ -17,18 +17,12 @@
     </ng-container>
     <ng-template #otherRoom>
       <span class="difficulty-label">
-        You are currently connected to another player's room
+        You are currently solving a board created by a player
       </span>
     </ng-template>
-    <button
-      class="action"
-      (click)="generateCoopRoom()"
-      *ngIf="!isGuest && !roomId"
-    >
-      Share room with other players
+    <button class="action" (click)="generateCoopRoom()" *ngIf="!isGuest">
+      Share board with other players
     </button>
-    <button class="action" *ngIf="!isGuest && roomId">Close room</button>
-    <button class="action" *ngIf="isGuest">Leave room</button>
   </div>
 
   <div class="board-container">

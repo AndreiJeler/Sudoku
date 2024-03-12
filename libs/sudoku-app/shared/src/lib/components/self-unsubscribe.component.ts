@@ -1,6 +1,7 @@
 import { Component, OnDestroy } from '@angular/core';
 import { Subject, Subscription } from 'rxjs';
 
+// Base component that has the possibility for unsubscribing on destroy
 @Component({ template: '' })
 export class SelfUnsubscribeComponent implements OnDestroy {
   protected ngUnsubscribe: Subject<any> = new Subject();

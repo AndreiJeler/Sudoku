@@ -1,4 +1,4 @@
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -22,7 +22,6 @@ import {
   SelfUnsubscribeComponent,
   mapBoardToApiEntity,
   SignalRService,
-  mapApiEntityToBoard,
   mapMatrixToBoard,
 } from '@sudoku/shared';
 import { environment } from 'apps/sudoku/src/environments/environment';
@@ -39,6 +38,7 @@ export class BoardComponent extends SelfUnsubscribeComponent implements OnInit {
   selectedRow = -1;
   selectedCol = -1;
 
+  // Pattern for ngx mask for letting the user to enter only digits between 1 and 9
   customPatterns = {
     '0': { pattern: new RegExp('[1-9]') },
   };
@@ -84,6 +84,7 @@ export class BoardComponent extends SelfUnsubscribeComponent implements OnInit {
   }
 
   ngOnInit() {
+    // If a roomId is given as a query param, the it is a shared board
     this.route.queryParams
       .pipe(
         takeUntil(this.ngUnsubscribe),
@@ -96,6 +97,7 @@ export class BoardComponent extends SelfUnsubscribeComponent implements OnInit {
           this.roomId = params['roomId'];
           this.isGuest = true;
 
+          // Join the room (take the board from BE and announce other users that you are solving itt)
           return this.coopService.joinRoom(params['roomId']).pipe(
             takeUntil(this.ngUnsubscribe),
             first(),
@@ -141,11 +143,13 @@ export class BoardComponent extends SelfUnsubscribeComponent implements OnInit {
   }
 
   generateCoopRoom(): void {
+    //Take current board
     this.store
       .select(selectCurrentBoard)
       .pipe(
         takeUntil(this.ngUnsubscribe),
         first(),
+        // Using the current board, create a room
         switchMap((board) => {
           return this.coopService.createRoom(mapBoardToApiEntity(board)).pipe(
             takeUntil(this.ngUnsubscribe),
@@ -153,6 +157,7 @@ export class BoardComponent extends SelfUnsubscribeComponent implements OnInit {
             switchMap((response) => {
               this.roomId = response.id;
 
+              // Modal that contains the url
               this.dialogService.copyUrlToClipboard(
                 `${environment.clientUrl}/?roomId=${response.id}`
               );

@@ -9,6 +9,7 @@ import { BoardDifficulty } from '../models/board-difficulty';
 import { SolveResponse } from '../models/solve-response';
 import { environment } from 'apps/sudoku/src/environments/environment';
 
+// Service for SuGOku API
 @Injectable()
 export class SudokuService {
   private _baseUrl: string;
@@ -37,6 +38,7 @@ export class SudokuService {
     );
   }
 
+  // Transform the board into a form data object, that is needed for post operations to SuGOku
   private _prepareFormData(board: Board) {
     const formData = new FormData();
     formData.append('board', JSON.stringify(mapBoardToMatrix(board)));
