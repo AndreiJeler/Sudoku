@@ -22,14 +22,15 @@ Run `npx nx run sudoku-server:serve ` to start the .Net server in development mo
 - State management using NgRx
 - Generate, validate and solve a sudoku board are done by the external API [SuGOku](https://github.com/bertoort/sugoku)
 - User can create its own board, if a board is not generated using a difficulty button
+- A simple modal as a loader for HTTP requests to SuGOku
 
 ## Notes
 - The create a room button is just creating a board on the server that can be accesed by other players, but the co-op is not fully implemented
 
 ## Screenshots
 Empty board:
-<img src="https://raw.githubusercontent.com/AndreiJeler/Sudoku/master/screenshots/empty-board.png?token=GHSAT0AAAAAACPF7MUGEDWMPNPUDOA5OBUAZPQDRRA">
+<img src="https://github.com/AndreiJeler/Sudoku/blob/master/screenshots/empty-board.png?raw=true">
 Prefilled board:
-<img src="https://raw.githubusercontent.com/AndreiJeler/Sudoku/master/screenshots/prefilled-board.png?token=GHSAT0AAAAAACPF7MUH53PGHPEYHXMBQPC6ZPQDSCQ">
+<img src="https://github.com/AndreiJeler/Sudoku/blob/master/screenshots/prefilled-board.png?raw=true">
 Solved board:
-<img src="https://raw.githubusercontent.com/AndreiJeler/Sudoku/master/screenshots/solved-board.png?token=GHSAT0AAAAAACPF7MUHW2SUI27DRLSR4TG4ZPQDSOA">
+<img src="https://github.com/AndreiJeler/Sudoku/blob/master/screenshots/solved-board.png?raw=true">
