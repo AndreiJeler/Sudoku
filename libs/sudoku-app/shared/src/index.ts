@@ -1,6 +1,8 @@
 export * from './lib/services/api.service';
 export * from './lib/services/dialog.service';
 export * from './lib/services/sudoku.service';
+export * from './lib/services/coop.service';
+export * from './lib/services/signalR.service';
 export * from './lib/utils/board-utils';
 export * from './lib/models/board';
 export * from './lib/models/board-cell';
@@ -9,4 +11,6 @@ export * from './lib/models/board-api';
 export * from './lib/models/board-status';
 export * from './lib/models/validate-response';
 export * from './lib/models/solve-response';
+export * from './lib/models/change';
+export * from './lib/models/sudoku-room';
 export * from './lib/components/self-unsubscribe.component';

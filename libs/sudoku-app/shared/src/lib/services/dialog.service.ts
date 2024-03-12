@@ -33,10 +33,10 @@ export class DialogService {
   }
 
   showLoader(): void {
-    this._loader = Swal.fire({
+    Swal.fire({
       title: 'Loading...',
       allowOutsideClick: false,
-      didOpen: () => Swal.showLoading(),
+      text: 'The request is being processed',
     });
   }
 

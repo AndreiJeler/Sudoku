@@ -1,38 +1,91 @@
-<div class="board sudoku--flex-column">
-  <div
-    class="row sudoku--flex"
-    *ngFor="let row of board$ | async; let rowIndex = index"
-  >
-    <div
-      class="cell sudoku--flex-centered"
-      [ngClass]="{
-        top: rowIndex % 3 === 0,
-        bottom: rowIndex % 3 === 2,
-        left: colIndex % 3 === 0,
-        right: colIndex % 3 === 2,
-        'highlighted-row': selectedRow === rowIndex,
-        'highlighted-column': selectedCol === colIndex,
-        active: selectedRow === rowIndex && selectedCol === colIndex,
-        readonly: cell.isGenerated,
-        solved: (isBoardSolved$ | async)
-      }"
-      disabled="cell.isGenerated"
-      *ngFor="let cell of row; let colIndex = index"
-      (click)="onCellClicked(rowIndex, colIndex)"
+<div class="main-game-container sudoku--flex-centered sudoku--flex-column">
+  <div class="game-settings-container sudoku--flex-column">
+    <ng-container *ngIf="!isGuest; else otherRoom">
+      <span class="difficulty-label">
+        Choose a difficulty to start a new game:
+      </span>
+      <div class="difficulties-container sudoku--flex">
+        <button class="action" (click)="selectDifficulty('easy')">Easy</button>
+        <button class="action" (click)="selectDifficulty('medium')">
+          Medium
+        </button>
+        <button class="action" (click)="selectDifficulty('hard')">Hard</button>
+        <button class="action" (click)="selectDifficulty('random')">
+          Random
+        </button>
+      </div>
+    </ng-container>
+    <ng-template #otherRoom>
+      <span class="difficulty-label">
+        You are currently connected to another player's room
+      </span>
+    </ng-template>
+    <button
+      class="action"
+      (click)="generateCoopRoom()"
+      *ngIf="!isGuest && !roomId"
     >
-      <input
-        type="number"
-        spellcheck="false"
-        autocomplete="off"
-        mask="0"
-        [patterns]="customPatterns"
-        class="cell-input"
-        *ngIf="!cell.isGenerated; else generatedCell"
-        (input)="onCellValueChange(rowIndex, colIndex, $event.target)"
-      />
-      <ng-template #generatedCell>
-        <span class="cell-value"> {{ cell.value }}</span>
-      </ng-template>
+      Share room with other players
+    </button>
+    <button class="action" *ngIf="!isGuest && roomId">Close room</button>
+    <button class="action" *ngIf="isGuest">Leave room</button>
+  </div>
+
+  <div class="board-container">
+    <div class="board sudoku--flex-column">
+      <div
+        class="row sudoku--flex"
+        *ngFor="let row of board$ | async; let rowIndex = index"
+      >
+        <div
+          class="cell sudoku--flex-centered"
+          [ngClass]="{
+            top: rowIndex % 3 === 0,
+            bottom: rowIndex % 3 === 2,
+            left: colIndex % 3 === 0,
+            right: colIndex % 3 === 2,
+            'highlighted-row': selectedRow === rowIndex,
+            'highlighted-column': selectedCol === colIndex,
+            active: selectedRow === rowIndex && selectedCol === colIndex,
+            readonly: cell.isGenerated,
+            solved: (isBoardSolved$ | async)
+          }"
+          disabled="cell.isGenerated"
+          *ngFor="let cell of row; let colIndex = index"
+          (click)="onCellClicked(rowIndex, colIndex)"
+        >
+          <input
+            type="number"
+            spellcheck="false"
+            autocomplete="off"
+            mask="0"
+            [patterns]="customPatterns"
+            class="cell-input"
+            *ngIf="!cell.isGenerated; else generatedCell"
+            (input)="onCellValueChange(rowIndex, colIndex, $event.target)"
+          />
+          <ng-template #generatedCell>
+            <span class="cell-value"> {{ cell.value }}</span>
+          </ng-template>
+        </div>
+      </div>
     </div>
+  </div>
+
+  <div class="actions-container sudoku--flex-space-between">
+    <button
+      class="action"
+      (click)="onValidateBoard()"
+      [disabled]="isBoardSolved$ | async"
+    >
+      Validate
+    </button>
+    <button
+      class="action"
+      (click)="onSolveBoard()"
+      [disabled]="isBoardSolved$ | async"
+    >
+      Solve
+    </button>
   </div>
 </div>

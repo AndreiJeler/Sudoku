@@ -1,37 +1,18 @@
+@use 'apps/sudoku/src/assets/styles/variables.scss' as *;
+
 .main-container {
   height: 100vh;
+  flex-wrap: wrap;
 
   .game-container {
-    border: 2px solid black;
     gap: 1.5rem;
     width: fit-content;
     padding: 1rem;
     overflow-y: auto;
 
-    .action {
-      font-size: 1.2rem;
-      padding: 0.5rem 1rem;
-      background-color: black;
-      color: white;
-      border: none;
-      border-radius: 0.25rem;
-      cursor: pointer;
-      width: 100%;
-
-      &:disabled {
-        cursor: default;
-      }
-    }
-
     .title-container {
       gap: 1rem;
       width: 100%;
-
-      .title {
-        font-size: 1.5rem;
-        font-weight: bold;
-        text-align: center;
-      }
 
       .logo {
         width: 5rem;
@@ -41,27 +22,33 @@
     }
 
     .help-container {
-      gap: 0.2rem;
       width: 100%;
-      font-size: 1rem;
-    }
 
-    .game-settings-container {
-      width: 100%;
-      gap: 1rem;
+      .action {
+        font-size: 1.2rem;
+        padding: 0.5rem 1rem;
+        background-color: $sudoku-primary;
+        color: $sudoku-button-text;
+        border: none;
+        border-radius: 0.25rem;
+        cursor: pointer;
+        width: 100%;
 
-      .difficulty-label {
-        font-size: 1rem;
+        &:disabled {
+          cursor: default;
+        }
       }
 
-      .difficulties-container {
-        gap: 0.5rem;
-      }
-    }
+      .help-link {
+        text-decoration: none;
+        text-align: center;
 
-    .actions-container {
-      width: 100%;
-      gap: 0.5rem;
+        &:visited,
+        &:hover,
+        &:active {
+          text-decoration: none;
+        }
+      }
     }
 
     .footer {

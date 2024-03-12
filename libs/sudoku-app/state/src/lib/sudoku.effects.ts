@@ -29,8 +29,9 @@ export class SudokuEffects {
   generateNewSudokuBoard = createEffect(() =>
     this._actions$.pipe(
       ofType(generateNewBoard),
-      mergeMap((action) =>
-        this._sudokuService.getBoard(action.difficulty).pipe(
+      mergeMap((action) => {
+        this._dialogService.showLoader();
+        return this._sudokuService.getBoard(action.difficulty).pipe(
           first(),
           map((boardResponse) => {
             const board = mapApiEntityToBoard(boardResponse);
@@ -40,8 +41,8 @@ export class SudokuEffects {
             });
           }),
           catchError((error) => of(error))
-        )
-      )
+        );
+      })
     )
   );
 
@@ -65,12 +66,13 @@ export class SudokuEffects {
       concatLatestFrom(() =>
         this._store.select(selectCurrentBoard).pipe(first())
       ),
-      mergeMap(([_, board]) =>
-        this._sudokuService.solveBoard(board).pipe(
+      mergeMap(([_, board]) => {
+        this._dialogService.showLoader();
+        return this._sudokuService.solveBoard(board).pipe(
           first(),
           map((result) => successfullySolvedBoard({ solveResponse: result }))
-        )
-      )
+        );
+      })
     )
   );
 
@@ -105,14 +107,15 @@ export class SudokuEffects {
       concatLatestFrom(() =>
         this._store.select(selectCurrentBoard).pipe(first())
       ),
-      mergeMap(([_, board]) =>
-        this._sudokuService.validateBoard(board).pipe(
+      mergeMap(([_, board]) => {
+        this._dialogService.showLoader();
+        return this._sudokuService.validateBoard(board).pipe(
           first(),
           map((result) =>
             successfullyValidatedBoard({ boardStatus: result.status })
           )
-        )
-      )
+        );
+      })
     )
   );
 

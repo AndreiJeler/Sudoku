@@ -2,6 +2,7 @@ import { createReducer, on } from '@ngrx/store';
 import { SudokuState } from './sudoku.state';
 import {
   cellValueChanged,
+  joinRoom,
   successfullyGeneratedNewBoard,
   successfullySolvedBoard,
   successfullyValidatedBoard,
@@ -55,5 +56,11 @@ export const sudokuReducer = createReducer(
         return [...rowCells];
       }),
     },
+  })),
+  on(joinRoom, (state, { roomId, board }) => ({
+    ...state,
+    initialBoard: { ...board },
+    currentBoard: { ...board },
+    roomId: roomId,
   }))
 );

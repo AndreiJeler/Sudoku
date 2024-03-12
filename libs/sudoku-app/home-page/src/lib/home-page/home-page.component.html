@@ -5,49 +5,15 @@
       <img class="logo" src="./assets/images/logo.png" />
     </div>
     <div class="help-container sudoku--flex">
-      <span class="label">Do you want to read the rules?</span>
       <a
+        target="_blank"
+        class="help-link action"
         href="https://sudoku.com/how-to-play/sudoku-rules-for-complete-beginners/"
-        >Read them here</a
       >
+        Read the rules
+      </a>
     </div>
-    <div class="game-settings-container sudoku--flex-column">
-      <span class="difficulty-label"
-        >Choose a difficulty to start a new game:</span
-      >
-      <div class="difficulties-container sudoku--flex">
-        <button class="action" (click)="selectDifficulty('easy')">Easy</button>
-        <button class="action" (click)="selectDifficulty('medium')">
-          Medium
-        </button>
-        <button class="action" (click)="selectDifficulty('hard')">Hard</button>
-        <button class="action" (click)="selectDifficulty('random')">
-          Random
-        </button>
-      </div>
-      <button class="action" (click)="generateCoopRoom()" *ngIf="!isGuest">
-        Share room with other players
-      </button>
-    </div>
-    <div class="board-container">
-      <sudoku-board></sudoku-board>
-    </div>
-    <div class="actions-container sudoku--flex-space-between" *ngIf="!isGuest">
-      <button
-        class="action"
-        (click)="onValidateBoard()"
-        [disabled]="isBoardSolved$ | async"
-      >
-        Validate
-      </button>
-      <button
-        class="action"
-        (click)="onSolveBoard()"
-        [disabled]="isBoardSolved$ | async"
-      >
-        Solve
-      </button>
-    </div>
+    <sudoku-board></sudoku-board>
     <div class="footer">
       *Application created by Andrei Jeler using Angular*
     </div>

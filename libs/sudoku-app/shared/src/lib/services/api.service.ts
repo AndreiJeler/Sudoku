@@ -5,17 +5,13 @@ import {
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, Subject } from 'rxjs';
-import { environment } from 'apps/sudoku/src/environments/environment';
 import { DialogService } from '@sudoku/shared';
 
 @Injectable()
 export class ApiService {
-  public baseUrl: string;
   public errors = new Subject<HttpErrorResponse>();
 
-  constructor(private http: HttpClient, private dialogService: DialogService) {
-    this.baseUrl = environment.sudokuAPIUrl;
-  }
+  constructor(private http: HttpClient, private dialogService: DialogService) {}
 
   get<T>(
     path: string,
@@ -24,7 +20,7 @@ export class ApiService {
   ): Observable<T> {
     const httpParams = this._parseQueryParams(params);
     return this.http
-      .get<T>(`${this.baseUrl}${path}`, { params: httpParams })
+      .get<T>(path, { params: httpParams })
       .pipe(
         catchError((err) =>
           this._handleHttpError(err, areErrorsHandledInComponent)
@@ -39,7 +35,7 @@ export class ApiService {
     areErrorsHandledInComponent?: boolean
   ): Observable<T> {
     return this.http
-      .put<T>(`${this.baseUrl}${path}`, body, options)
+      .put<T>(path, body, options)
       .pipe(
         catchError((err) =>
           this._handleHttpError(err, areErrorsHandledInComponent)
@@ -54,7 +50,7 @@ export class ApiService {
     areErrorsHandledInComponent?: boolean
   ): Observable<T> {
     return this.http
-      .post<T>(`${this.baseUrl}${path}`, body, options)
+      .post<T>(path, body, options)
       .pipe(
         catchError((err) =>
           this._handleHttpError(err, areErrorsHandledInComponent)
@@ -67,7 +63,7 @@ export class ApiService {
     areErrorsHandledInComponent?: boolean
   ): Observable<any> {
     return this.http
-      .delete<T>(`${this.baseUrl}${path}`)
+      .delete<T>(path)
       .pipe(
         catchError((err) =>
           this._handleHttpError(err, areErrorsHandledInComponent)
@@ -84,7 +80,7 @@ export class ApiService {
     this.dialogService.showDialog({
       title: 'Error',
       icon: 'error',
-      text: err.error ?? 'An error has occurred',
+      text: 'An error has occurred',
     });
     throw err;
   }
