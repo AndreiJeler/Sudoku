@@ -1,0 +1,16 @@
+version: '1'
+services:
+  sudoku:
+    build:
+      context: .
+      dockerfile: ./apps/sudoku/Dockerfile
+    ports:
+      - '4200:4200'
+    container_name: sudoku
+  # sudoku-server:
+  #   build:
+  #     context: .
+  #     dockerfile: ./apps/sudoku-server/Dockerfile
+  #   ports:
+  #     - '5000:5001'
+  #   container_name: sudoku-server
